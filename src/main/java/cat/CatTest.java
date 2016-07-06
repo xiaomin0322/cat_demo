@@ -5,7 +5,7 @@ import com.dianping.cat.message.Event;
 import com.dianping.cat.message.Transaction;
 
 /**
- * cat ²âÊÔ
+ * cat ï¿½ï¿½ï¿½ï¿½
  * @author zzm
  *
  */
@@ -14,25 +14,31 @@ public class CatTest {
 	public static void main(String[] args) throws Exception {
 		
 		for(int i=0;i<100;i++){
+			long start = System.currentTimeMillis();
 			Transaction t = Cat.getProducer().newTransaction(
 					"Testtransaction", "your transaction name");
+			System.out.println("create Transaction time : " +(System.currentTimeMillis() - start));
+
+			
 			try {
 				// yourBusinessOperation();
 				//Thread.sleep(500);
 				Cat.getProducer().logEvent("Testevent", "your event name",
 						Event.SUCCESS, "keyValuePairs");
 				t.setStatus(Transaction.SUCCESS);
+				
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 				Cat.getProducer().logError(e);
-				// ÓÃlog4j¼ÇÂ¼ÏµÍ³Òì³££¬ÒÔ±ãÔÚLogviewÖÐ¿´µ½´ËÐÅÏ¢ t.setStatus(e); throw e;
-				// (CATËùÓÐµÄAPI¶¼¿ÉÒÔµ¥¶ÀÊ¹ÓÃ£¬Ò²¿ÉÒÔ×éºÏÊ¹ÓÃ£¬±ÈÈçTransactionÖÐÇ¶Ì×Event»òÕßMetric¡£)
-				// (×¢ÒâÈç¹ûÕâÀïÏ£ÍûÒì³£¼ÌÐøÏòÉÏÅ×£¬ÐèÒª¼ÌÐøÏòÉÏÅ×³ö£¬ÍùÍùÐèÒªÅ×³öÒì³££¬ÈÃÉÏ²ãÓ¦ÓÃÖªµÀ¡£)
-				// (Èç¹ûÈÏÎªÕâ¸öÒì³£ÔÚÕâ±ß¿ÉÒÔ±»³Ôµô£¬Ôò²»ÐèÒªÔÚÅ×³öÒì³£¡£)
-
+				// ï¿½ï¿½log4jï¿½ï¿½Â¼ÏµÍ³ï¿½ì³£ï¿½ï¿½ï¿½Ô±ï¿½ï¿½ï¿½Logviewï¿½Ð¿ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢ t.setStatus(e); throw e;
+				// (CATï¿½ï¿½ï¿½Ðµï¿½APIï¿½ï¿½ï¿½ï¿½ï¿½Ôµï¿½ï¿½ï¿½Ê¹ï¿½Ã£ï¿½Ò²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¹ï¿½Ã£ï¿½ï¿½ï¿½ï¿½ï¿½Transactionï¿½ï¿½Ç¶ï¿½ï¿½Eventï¿½ï¿½ï¿½ï¿½Metricï¿½ï¿½)
+				// (×¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï£ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×£ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½×³ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ï¿½Ï²ï¿½Ó¦ï¿½ï¿½Öªï¿½ï¿½ï¿½ï¿½)
+				// (ï¿½ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½ï¿½ï¿½ì³£ï¿½ï¿½ï¿½ï¿½ß¿ï¿½ï¿½Ô±ï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Òªï¿½ï¿½ï¿½×³ï¿½ï¿½ì³£ï¿½ï¿½)
 			} finally {
-				t.complete();
 				
+				t.complete();
+				System.out.println("all time : " +(System.currentTimeMillis() - start));
 			}
 			System.out.println(i);
 			Thread.sleep(5000);
